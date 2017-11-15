@@ -1,0 +1,32 @@
+.userbidcontainer
+{
+	width:100% !important;
+	
+	padding:1%;
+}
+.userbidproductrow
+{
+	
+	width:100% !important;
+	height:12% !important;
+}
+.colproductinfo, .colproductimg
+{
+	height:100% !important;	
+}
+.colproductinfo
+{
+	padding-top:1%;
+	margin-right:38% !important;
+	margin-left:1%;
+	width:40%;
+	float:right;
+	
+}
+.colproductimg
+{
+	width:20%;
+	float:left;
+	
+
+}

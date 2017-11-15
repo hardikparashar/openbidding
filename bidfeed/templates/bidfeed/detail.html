@@ -1,0 +1,109 @@
+{% extends 'bidfeed/base.html' %}
+{% block title %}{{ product }}{% endblock %}
+
+
+{% block javascript %}
+
+var tot_{{forloop.counter}};
+var d_{{forloop.counter}}; var h_{{forloop.counter}}; var s_{{forloop.counter}}; var m_{{forloop.counter}};
+tot_{{forloop.counter}} = {{ product.rem_days }}
+var x = setInterval(function() {
+
+d_{{forloop.counter}} = Math.floor((tot_{{forloop.counter}})/86400);
+h_{{forloop.counter}} = Math.floor(((tot_{{forloop.counter}})%86400) / 3600);
+m_{{forloop.counter}} = Math.floor((((tot_{{forloop.counter}})%86400)%3600) / 60);
+s_{{forloop.counter}} = Math.floor((((tot_{{forloop.counter}})%86400)%3600) % 60);
+
+document.getElementById('{{product.id}}').innerHTML = d_{{forloop.counter}} + "D " + h_{{forloop.counter}} + "h " + m_{{forloop.counter}} + "m " + s_{{forloop.counter}} + "s";
+tot_{{forloop.counter}} = (tot_{{forloop.counter}})-1;
+if (tot_{{forloop.counter}} < 0) 
+	{
+		clearInterval(x);
+		document.getElementById('{{product.id}}').innerHTML = "SOLD OUT!";
+	}
+},1000);
+
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Product Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'bidfeed:detail' product.id %}">
+                        {% if product.product_image %}
+                            <img src="{{ product.product_image.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h2>{{ product.product_name }} <br><small>seller: {{ product.user.username }} | Current Price: <strong class="text-success">&#8377;{{ product.current_price }}</strong></small></h2>
+                    <h3 id="{{product.id}}"></h3>
+					<p>{{product.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right list of bids -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'bidfeed:detail' product.id %}">View All</a></li>
+				{% if product.user != user %}
+                <li role="presentation"><a href="{% url 'bidfeed:place_bid' product.id %}">Add New Bid</a></li>
+				{% endif %}
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All bids</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Bid Value</th>
+                            <th>User</th>
+                           
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for bid in bids %}
+                            <tr>
+                                <td>&#8377;{{ bid.bid_value }}</td>
+                                <td>
+                                    {{ bid.user }}
+                                    
+                                </td>
+                                <td>
+									
+                                    
+                                </td>
+							
+                                <td>
+									
+                                </td>
+								
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

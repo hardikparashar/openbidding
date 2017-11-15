@@ -1,0 +1,124 @@
+{% extends 'bidfeed/base.html' %}
+{% block title %}{{ product }}{% endblock %}
+{% block profile_active %}active{% endblock %}
+
+{% block javascript %}
+
+
+
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid" style="padding:0;">
+  <div class="container">
+    <h1 class="display-5">Dashboard</h1>
+    <p class="lead"style="color:grey;">{{user.username}}</p>
+  </div>
+</div>
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Right list of bids -->
+        <div class="col-sm-12 col-md-12">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" ><a href="{% url 'bidfeed:user_bids'%}">Current Bids</a></li>
+                <li role="presentation" ><a href="{% url 'bidfeed:purchases'%}">Purchases</a></li>
+				<li role="presentation" class="active"><a href="{% url 'bidfeed:user_bids'%}">Products sold</a></li>
+			
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                   
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <!--<table class="table">
+                        <thead>
+                        <tr>
+							<th>Product</th>
+							<th>Time Left</th>
+                            <th>Bid Value</th>
+                            <th>Time</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for bid in bids %}
+                            <tr>
+                                <td>{{ bid.bid_value }}</td>
+                                <td>
+                                    {{ bid.user }}
+                                    
+                                </td>
+                                <td>
+									
+                                    
+                                </td>
+							
+                                <td>
+									
+                                </td>
+								
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>-->
+					<div class="container userbidcontainer">
+					<!--LOOP THROUGH THE ROWS BELOW-->
+					{% for product in products %}
+					
+					<div class="row userbidproductrow">	
+						
+						
+						<div class="col" style="height:100%;">
+						<div class="container" style="height:100%;">
+						<div class="row" style="height:100%;width:100%;">
+						<div class="col-2 colproductimg">
+						<a href="{% url 'bidfeed:detail' product.id %}"><img id = "chatheadimg"src="{{product.product_image.url}}" height="150px" width="150px" class="rounded thumbnail"/></a>
+						</div>
+						<div class="col-10 colproductinfo">
+						<h1 id = "chatheadusername" class="display-2 otherusername"><a href="{% url 'bidfeed:detail' product.id %}">{{bid.product.product_name}}</a></h1><h3 class="status"><strong class="text-success">Purchase Price:</strong>{{product.current_price}}</h3>
+						
+						
+						</div>
+						</div>
+						</div>
+						</div>
+						
+						
+					
+					
+				</div>
+				<hr>
+				
+				{% endfor %}
+        
+		
+		<!--<br><br><br>
+        <div class="col-sm-12 col-md-10">
+            <div class="media">
+              <div class="media-left">
+                <a href="#">
+                  <img class="media-object" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+      
+                </div>
+            </div>
+
+        </div>-->
+
+    </div>
+
+</div>
+</div>
+</div>
+{% endblock %}
