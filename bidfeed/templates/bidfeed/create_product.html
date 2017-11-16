@@ -19,19 +19,46 @@
                         {% include 'bidfeed/form_template.html' %}
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <input type="submit" class="btn btn-success"name="action" value="normal">Submit</button>
+								
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
+		
        <div class="col-sm-12 col-md-5">
             <div class="panel panel-default">
-               <!-- <div class="panel-body">
-                    <h3>What is Viberr?</h3>
-                    <p>Viberr is an app that allows you to upload and store all of your music on the cloud.</p>
+				
+                <div class="panel-body">
+				
+                   <h3>OR add products From CSV</h3>
+				   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#csvmodal">Upload CSV</button>
+
+		<!-- Modal -->
+				<div class="modal fade" id="csvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLabel">Add Products from CSV</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form" action="{% url 'bidfeed:uploadcsv'%}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<input type="file" accept=".csv" name="csv_file" />
+						<br>
+						<button type="submit" class="btn btn-success"name="action" value="csv">Upload</button>
+						</form>
+					</div>
+					
+					</div>
+				</div>
+		</div>
+                   <!--  <p>Viberr is an app that allows you to upload and store all of your music on the cloud.</p>
                     <h3>How do I add music?</h3>
                     <p>First, create a new album by filling out the form on this page. Once an album is created you will be able to add/upload songs.</p>
                     <h3>What are some Album logo best practices?</h3>
@@ -40,8 +67,8 @@
                         <li>Use common image formats such as .JPG, .GIF, or .PNG</li>
                         <li>Remain under the 2MB limit.</li>
                         <li>Square images look best</li>
-                    </ul>
-                </div>-->
+                    </ul>-->
+                </div>
             </div>
         </div>
 

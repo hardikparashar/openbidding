@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^login_user/$', views.login_user, name='login_user'),
     url(r'^logout_user/$', views.logout_user, name='logout_user'),
     url(r'^(?P<product_id>[0-9]+)/$', views.detail, name='detail'),
-	
+	url(r'^uploadcsv/$', views.uploadcsv, name='uploadcsv'),
 	#url(r'^(?P<product_id>[0-9]+)/$', views.profile, name='profile'),
     #url(r'^(?P<bid_id>[0-9]+)/favorite/$', views.favorite, name='favorite'),
     #url(r'^songs/(?P<filter_by>[a-zA_Z]+)/$', views.songs, name='songs'),

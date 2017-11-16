@@ -3,7 +3,7 @@
 
 
 {% block javascript %}
-
+console.log({{product.product_image.url}})
 var tot_{{forloop.counter}};
 var d_{{forloop.counter}}; var h_{{forloop.counter}}; var s_{{forloop.counter}}; var m_{{forloop.counter}};
 tot_{{forloop.counter}} = {{ product.rem_days }}
@@ -20,6 +20,7 @@ if (tot_{{forloop.counter}} < 0)
 	{
 		clearInterval(x);
 		document.getElementById('{{product.id}}').innerHTML = "SOLD OUT!";
+		document.getElementById('addbid').remove();
 	}
 },1000);
 
@@ -54,7 +55,9 @@ if (tot_{{forloop.counter}} < 0)
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
                 <li role="presentation" class="active"><a href="{% url 'bidfeed:detail' product.id %}">View All</a></li>
 				{% if product.user != user %}
-                <li role="presentation"><a href="{% url 'bidfeed:place_bid' product.id %}">Add New Bid</a></li>
+				{% if product.rem_days > 0%}
+                <li id="addbid" role="presentation"><a href="{% url 'bidfeed:place_bid' product.id %}">Add New Bid</a></li>
+				{% endif %}
 				{% endif %}
             </ul>
 

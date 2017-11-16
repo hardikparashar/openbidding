@@ -8,6 +8,9 @@ from django.db.models import Q
 from datetime import datetime, timedelta
 from .forms import ProductForm, BidForm, UserForm
 from .models import Product, Bid
+from django.conf import settings
+import csv
+from django.core.files.storage import FileSystemStorage
 import pytz
 
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
@@ -51,7 +54,32 @@ def create_product(request):
 		}
 		return render(request, 'bidfeed/create_product.html', context)
 
-
+def	uploadcsv(request):
+	if request.method == 'POST' and request.FILES['csv_file']:
+		myfile = request.FILES['csv_file']
+		fs = FileSystemStorage()
+		filename = fs.save(myfile.name, myfile)
+		file_url = fs.url(filename)
+		csvread = csv.reader(open(settings.BASE_DIR + settings.MEDIA_URL + filename), delimiter=',', quotechar='"')
+		
+		for row in csvread:
+			end_date = datetime.now() + timedelta(days=int(row[3]))
+			rem_days = row[3]
+			time1 = datetime.now()
+			tz = pytz.timezone('Asia/Kolkata')
+			time1 = tz.localize(time1)
+			end_date = tz.localize(end_date)
+			rem_days = (end_date - time1)
+			user=request.user
+			rem_days = rem_days.total_seconds()
+			Product.objects.create(product_name=row[0],end_date=end_date,days = int(row[3]),user=user,start_price=int(row[1]),min_increase=int(row[2]),description=row[4])
+			success = "Your products are added for auction!"
+	form = ProductForm()
+	context = {
+	'form':form,
+	'success':success
+	}
+	return render(request, 'bidfeed/create_product.html',context)
 def rem_time(product):
 	
 	time1 = datetime.now()

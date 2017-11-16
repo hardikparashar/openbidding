@@ -7,7 +7,7 @@ class Product(models.Model):
 	product_id = models.CharField(max_length=250)
 	user = models.ForeignKey(User, default=1)
 	customer = models.CharField(max_length=250, blank=True)
-	start_price = models.IntegerField(default=0)
+	start_price = models.IntegerField(default=0,blank=True)
 	bought = models.BooleanField(default=False)
 	product_name = models.CharField(max_length=400)
 	min_increase = models.IntegerField(default=5)
@@ -19,7 +19,8 @@ class Product(models.Model):
 	rem_days = models.IntegerField(help_text="enter in days",default="2")
 	days = models.IntegerField(help_text="enter in days",default="2")
 	end_date = models.DateTimeField(blank=True)
-	product_image = models.FileField()
+	product_image = models.FileField(blank=True)
+	
 
 	def __str__(self):
 		return self.product_name + ' - ' + str(self.rem_days)
