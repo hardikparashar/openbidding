@@ -77,7 +77,7 @@ def	uploadcsv(request):
 	form = ProductForm()
 	context = {
 	'form':form,
-	'success':success
+	'success':success,
 	}
 	return render(request, 'bidfeed/create_product.html',context)
 def rem_time(product):

@@ -25,7 +25,7 @@ SECRET_KEY = '5ertsj_2(lb&v%#du=%oyhceg^js&4f%cnd=$fy5!xa7*9ggi4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'openbid.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

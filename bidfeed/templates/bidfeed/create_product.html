@@ -19,7 +19,7 @@
                         {% include 'bidfeed/form_template.html' %}
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" class="btn btn-success"name="action" value="normal">Submit</button>
+                                <input type="submit" class="btn btn-success"name="action">Submit</button>
 								
                             </div>
                         </div>
@@ -32,9 +32,10 @@
             <div class="panel panel-default">
 				
                 <div class="panel-body">
-				
+					
                    <h3>OR add products From CSV</h3>
 				   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#csvmodal">Upload CSV</button>
+				   {% if success %}<h3 class="text-success">{{ success }}</h3>{% endif %}
 
 		<!-- Modal -->
 				<div class="modal fade" id="csvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
